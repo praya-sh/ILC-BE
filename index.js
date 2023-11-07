@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 const appRouter = require("./app/routes");
-const { StatusCodes,  } = require('http-status-codes');
+const { StatusCodes, ReasonPhrases } = require('http-status-codes');
 app.get('/', function (req, res) {
    res.send({message:'Welcome to IMC server',statusCode:StatusCodes.OK,status:ReasonPhrases.OK});
 })
