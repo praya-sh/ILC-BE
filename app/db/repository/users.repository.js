@@ -1,5 +1,5 @@
 const {userCollection} = require("../models/users.model")
-
+//data access layer access each entity sets
 const addNewUser = async(userData)=>{
     try{
             const docRef = userCollection.doc('prayash');
