@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 const appRouter = require("./app/routes");
 const { StatusCodes, ReasonPhrases } = require('http-status-codes');
+var cors = require('cors')
+app.use(cors())
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({
    extended: true
