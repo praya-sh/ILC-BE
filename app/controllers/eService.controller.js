@@ -2,10 +2,19 @@ const { successResponse } = require("../libs/responseHelpers");
 const emailService = require("../services/emailServices/eService")
 const elistRepo = require("../db/repository/elist.repository")
 
-const sendEmail = (req, res, next) =>{
-    console.log("this works")
 
-    const sendMailResponse = emailService.sendmail(req, res,next);
+const sendEmail = async(req, res, next) =>{
+    console.log("this works");
+
+
+
+    const toEmailArray = req.body.emailIdArray;
+    const subject = req.body.subject;
+    const text = req.body.text;
+    if(!text || !subject)
+        return null;
+
+    const sendMailResponse = await emailService.sendmail(toEmailArray, subject, text);
     return successResponse(res, {message:sendMailResponse})
 }
 

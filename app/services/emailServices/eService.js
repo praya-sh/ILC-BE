@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 
 // const {successResponse} = require('../../libs/responseHelpers')
 
-const sendmail = ()=>{
+const sendmail = async(toEmailArray, subject, text)=>{
     const transporter = nodemailer.createTransport({
     service: 'gmail',
   auth: {
@@ -13,19 +13,23 @@ const sendmail = ()=>{
 
 const mailOptions = {
     from: 'intrinsiclearn6@gmail.com',
-    to: 'prayashshakya20@gmail.com',
-    subject: 'Sending Email using Node.js',
-    text: 'That was easy!'
+    to: toEmailArray,
+    subject: subject,
+    text
   };
 
 
-transporter.sendMail(mailOptions, function(error, info){
+return transporter.sendMail(mailOptions, function(error, info){
     if (error) {
-      console.log(error);
+      console.log("\n send email error\n",error);
+      return false
     } else {
       console.log('Email sent: ' + info.response);
+      return true
     }
-});}
+}
+
+);}
 
 
 module.exports= {sendmail};
