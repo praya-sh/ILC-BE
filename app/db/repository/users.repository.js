@@ -2,12 +2,13 @@ const {userCollection} = require("../models/users.model")
 //data access layer access each entity sets
 const addNewUser = async(userData)=>{
     try{
-            const docRef = userCollection.doc('prayash');
+            const docRef = userCollection.doc(userData.uid);
             const newDoc = await docRef.set(userData);
     return newDoc;
         }
         catch(error){
             console.error('Error creating user',error) 
+            throw new Error('Error creating user')
         }
 }
 
@@ -29,5 +30,17 @@ const getUsers = async()=>{
     }
 
 }
+const findUser = async(docKey)=>{
+    
+    try{
+        
+        const user = await userCollection.doc(docKey).get()
 
-module.exports={addNewUser,getUsers}
+        return user.exists ? user.data():null
+    }catch(error){
+        console.log(`Error finding ${docKey} user`, error)
+        throw new Error(`Error finding ${docKey} user`);
+    }
+}
+
+module.exports={addNewUser,getUsers, findUser}

@@ -1,11 +1,9 @@
-const { successResponse } = require("../libs/responseHelpers");
+const { successResponse } = require("../helpers/responseHelpers");
 const emailService = require("../services/emailServices/eService")
 const elistRepo = require("../db/repository/elist.repository")
 
-
 const sendEmail = async(req, res, next) =>{
     console.log("this works");
-
 
 
     const toEmailArray = req.body.emailIdArray;
@@ -30,8 +28,6 @@ const pushEcollection = async(req, res, next)=>{
     }
     const data = await elistRepo.addElist(eData);
     return successResponse(res, {message:'pushed to collection'})
-
-
 }
 
 module.exports = {sendEmail, listEcollection, pushEcollection};
