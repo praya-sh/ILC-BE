@@ -1,7 +1,8 @@
 const COLLECTIONS = {
     'USERS':'users',
     'ELIST':'elist',
-    'COURSES':'courses'
+    'COURSES':'courses',
+    'UNITS':'units'
 }
 
 module.exports=COLLECTIONS;
