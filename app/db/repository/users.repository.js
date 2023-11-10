@@ -34,11 +34,8 @@ const getUsers = async()=>{
 
 }
 const findUser = async(docKey)=>{
-    
     try{
-        
         const user = await userCollection.doc(docKey).get()
-
         return user.exists ? user.data():null
     }catch(error){
         console.log(`Error finding ${docKey} user`, error)
@@ -63,27 +60,9 @@ const addExptoUser = async(docKey, expPoint)=>{
     }
 }
 
-const getUserExp = async(docKey)=>{
-    try{
-        const userExp = await userCollection.doc(docKey).get();
-        userObj = userExp.data()
-        console.log(userObj)
-        //return userExp.expPoints
-    }catch(error){
-        console.log(error)
-    }
+module.exports={
+    addNewUser,
+    getUsers,
+    findUser, 
+    addExptoUser
 }
-const calculateUserLevel = async(docKey, expPoint)=>{
-    try{
-        const userRef = await userCollection.doc(docKey)
-        const level = expPoint/10
-        const userLevel = await userRef.update({
-            userLevel: level
-        })
-        return level
-    }catch(error){
-        console.log(error)
-    }
-}
-
-module.exports={addNewUser,getUsers, findUser, addExptoUser, getUserExp, calculateUserLevel}

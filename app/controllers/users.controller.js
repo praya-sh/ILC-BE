@@ -1,4 +1,4 @@
-const {successResponse, errorResponse, createdResponse} = require('../helpers/responseHelpers')
+const {successResponse, errorResponse, createdResponse, badRequestResponse, forbiddenResponse} = require('../helpers/responseHelpers')
 const usersModel = require("../db/models/users.model")
 const usersRepo = require("../db/repository/users.repository")
 const { parseUserObject } = require('../helpers/userHelper')
@@ -30,21 +30,35 @@ const saveUser = async(req,res,next)=>{
 
 const addExp = async(req, res, next)=>{
     const {exp, uid} = req.body
-    
-    const result = await usersRepo.addExptoUser(uid, exp)
-    return successResponse(res,{message:'added successfully', data: result});
-}
-const getExp = async(req, res, next)=>{
-    const {uId, exp} = req.params
-    const userExp = await usersRepo.getUserExp(uId)
-    return successResponse(res, {message:'found', data:userExp})
+    if(!uid || !exp)
+    return forbiddenResponse(res,{})
+    await usersRepo.addExptoUser(uid, exp)
+    return successResponse(res,{message:`${exp} points added successfully`, data: {uid,exp}});
 }
 
-const updateUserLevel = async(req, res, next)=>{
-    const {uid} = req.params
-    const points = await usersRepo.getUserExp(uid)
-    const result = await usersRepo.addNewUser(uid, points)
-    return successResponse(res, {message:'user level shown', data:result})
+const getUserExpInfo = async(req, res, next)=>{
+    try{
+        const {uid} = req.query
+        if(!uid)
+            return forbiddenResponse(res,{message:'Valide uid required'})
+        const userObject = await usersRepo.findUser(uid)
+        if(userObject===null || !userObject)
+            return badRequestResponse(res,{message:'Invalid user'})
+        const userTotalExperiencePoints = userObject.expPoints ? userObject.expPoints : 0
+        const userExperiencLevel = (userTotalExperiencePoints!==0) ? Math.floor(userTotalExperiencePoints/10) : 0;
+        const userExperiencePoints = (userTotalExperiencePoints!==0) ? userTotalExperiencePoints%10 : 0;
+        return successResponse(res, {
+            message:'User experience info retrieved', 
+            data:{
+                totalExperiencePoints:userTotalExperiencePoints,
+                currentExperienceLevel:userExperiencLevel,
+                currentExperiencePoints:userExperiencePoints
+            }
+        })
+    }
+    catch(error){
+        return errorResponse(res,{error})
+    }
 }
 
-module.exports = {listUsers,saveUser, addExp, getExp, updateUserLevel}
+module.exports = {listUsers,saveUser, addExp, getUserExpInfo}

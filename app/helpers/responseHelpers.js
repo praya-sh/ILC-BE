@@ -28,8 +28,28 @@ const errorResponse = async(res,{message='Something went wrong',data=null, error
         error
     })
 }
+const badRequestResponse = async(res,{message=ReasonPhrases.BAD_REQUEST,data=null, error=null}) => {
+    return res.send({
+        status:ReasonPhrases.BAD_REQUEST,
+        statusCode:StatusCodes.BAD_REQUEST,
+        message,
+        data,
+        error
+    })
+}
+const forbiddenResponse = async(res,{message=ReasonPhrases.FORBIDDEN,data=null, error=null}) => {
+    return res.send({
+        status:ReasonPhrases.FORBIDDEN,
+        statusCode:StatusCodes.FORBIDDEN,
+        message,
+        data,
+        error
+    })
+}
 
 module.exports = {
     successResponse, errorResponse,
     createdResponse,
+    badRequestResponse,
+    forbiddenResponse,
 }
