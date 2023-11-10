@@ -9,6 +9,7 @@ const parseUserObject =async(userData)=>{
         email:userData?.email,
         displayName: userData?.displayName,
         photoURL : userData?.photoURL,
+        
         // phoneNumber: userData?.phoneNumber,
     }
 }

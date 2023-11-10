@@ -28,4 +28,23 @@ const saveUser = async(req,res,next)=>{
     }
 }
 
-module.exports = {listUsers,saveUser}
+const addExp = async(req, res, next)=>{
+    const {exp, uid} = req.body
+    
+    const result = await usersRepo.addExptoUser(uid, exp)
+    return successResponse(res,{message:'added successfully', data: result});
+}
+const getExp = async(req, res, next)=>{
+    const {uId, exp} = req.params
+    const userExp = await usersRepo.getUserExp(uId)
+    return successResponse(res, {message:'found', data:userExp})
+}
+
+const updateUserLevel = async(req, res, next)=>{
+    const {uid} = req.params
+    const points = await usersRepo.getUserExp(uid)
+    const result = await usersRepo.addNewUser(uid, points)
+    return successResponse(res, {message:'user level shown', data:result})
+}
+
+module.exports = {listUsers,saveUser, addExp, getExp, updateUserLevel}
