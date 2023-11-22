@@ -16,4 +16,24 @@ const addUnit = async(req, res, next) =>{
     }
 }
 
-module.exports={addUnit}
+const addUnitContent = async(req, res, next)=>{
+    try{
+        
+        const {uid, uContent} = req.body
+        await unitRepo.addContent(uContent, uid)
+        return successResponse(res, {message:"added conternt", data:{uContent, uid}})
+    }catch(error){
+        console.log(error)
+    }
+}
+
+const getUnitContent = async(req, res, next)=>{
+    try{
+        
+    }catch(error){
+        console.log(error)
+    }
+}
+
+
+module.exports={addUnit, addUnitContent, getUnitContent}
