@@ -1,4 +1,6 @@
 var express = require('express');
+require('dotenv').config()
+
 var app = express();
 const appRouter = require("./app/routes");
 const { StatusCodes, ReasonPhrases } = require('http-status-codes');
