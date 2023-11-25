@@ -29,7 +29,10 @@ const addUnitContent = async(req, res, next)=>{
 
 const getUnitContent = async(req, res, next)=>{
     try{
-        
+        const {uid} = req.query
+        const unitObject = await unitRepo.getUnit(uid)
+        return successResponse(res, {message:"retrived unit", data: unitObject})
+
     }catch(error){
         console.log(error)
     }
