@@ -15,7 +15,7 @@ courseRouter.get('/listCourseUnits/:courseId', courseController.listCourseUnits)
 
 courseRouter.post('/addUnitContent', unitController.addUnitContent)
 
-courseRouter.get('/getCourseContent', unitController.getUnitContent)
+courseRouter.get('/getUnitContent', unitController.getUnitContent)
 
 
 module.exports = courseRouter;
