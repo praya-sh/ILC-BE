@@ -34,7 +34,7 @@ const getQuizAns = async(quizId) =>{
     try{
          const quiz = await quizCollection.doc(quizId).get()
          //console.log(quiz.data())
-         //const quizAns = quiz.data().ans
+         const quizAns = quiz.data().ans       //make this function getQuiz only and do this logic in controller
          //console.log(quizAns)
          return quizAns
     }catch{

@@ -25,7 +25,7 @@ const listQuizes = async(req, res, next) =>{
 
 const checkQuizAns = async(req, res, next) =>{
     try{
-        const givenAns = {...req.body}
+        const givenAns = {...req.body} //need to send quizId and ans as json
         //console.log(givenAns)
         const quizAns = await quizRepo.getQuizAns(givenAns.quizId)
         if (givenAns.ans == quizAns){
