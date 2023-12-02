@@ -22,5 +22,7 @@ courseRouter.post('/addQuiz', quizController.addQuiz )
 
 courseRouter.get('/getUnitQuizes', quizController.listQuizes)//used query
 
+courseRouter.post('/checkAnswer', quizController.checkQuizAns)
+
 
 module.exports = courseRouter;

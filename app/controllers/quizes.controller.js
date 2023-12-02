@@ -1,3 +1,4 @@
+const { messaging } = require("firebase-admin")
 const quizRepo = require("../db/repository/quizes.repository")
 const { createdResponse, successResponse } = require("../helpers/responseHelpers")
 
@@ -22,4 +23,20 @@ const listQuizes = async(req, res, next) =>{
     }
 }
 
-module.exports = { addQuiz, listQuizes}
+const checkQuizAns = async(req, res, next) =>{
+    try{
+        const givenAns = {...req.body}
+        //console.log(givenAns)
+        const quizAns = await quizRepo.getQuizAns(givenAns.quizId)
+        if (givenAns.ans == quizAns){
+            return successResponse(res, {message:"correct answer", data:quizAns})
+        }
+        else if(givenAns.ans != quizAns){
+            return successResponse(res, {message:"wrong answer", data:givenAns})
+        }
+    }catch(error){
+
+    }
+}
+
+module.exports = { addQuiz, listQuizes, checkQuizAns}

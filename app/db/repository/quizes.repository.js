@@ -27,7 +27,19 @@ const getUnitQuizes = async(unitId) =>{
 
     }catch(error){
         console.log(error)
-}
+    }
 }
 
-module.exports = {addNewQuiz, getUnitQuizes}
+const getQuizAns = async(quizId) =>{
+    try{
+         const quiz = await quizCollection.doc(quizId).get()
+         //console.log(quiz.data())
+         //const quizAns = quiz.data().ans
+         //console.log(quizAns)
+         return quizAns
+    }catch{
+        console.log(error)
+    }
+}
+
+module.exports = {addNewQuiz, getUnitQuizes, getQuizAns}
