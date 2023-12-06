@@ -18,7 +18,10 @@ const getCourses = async()=>{
         if(courses)
         {
             courses.forEach((doc) => {
-                coursesArray.push(doc.data())
+                coursesArray.push({
+                    id: doc.id,
+                    name: doc.data().name,
+                })
               });
         }
         console.log(JSON.stringify(coursesArray))
@@ -33,13 +36,15 @@ const getCourseUnits = async(courseId)=>{
     try{
         const courseUnits = await unitCollection.where('course', '==', courseId).get()
         const courseUnitArray = [];
-        
-        
-
         if (courseUnits)
         {
             courseUnits.forEach((doc)=>{
-                courseUnitArray.push(doc.data())
+                courseUnitArray.push({
+                    id:doc.id,
+                    unit:doc.data().unit,
+                    course:doc.data().course,
+                    uContent:doc.data().uContent
+                })
             });
         }
         
