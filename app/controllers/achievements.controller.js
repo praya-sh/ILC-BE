@@ -11,7 +11,15 @@ const addAchievement = async(req, res, next)=>{
     }
 }
 
+const listAchievements = async(req, res, next)=>{
+    try{
+        const achievementList = await achievemntRepo.listAllAchievements()
+        return successResponse(res, {message:'achievements listed',data:achievementList})
+    }catch(error){
+        console.log(error)
+    }
+}
 
 
-module.exports = {addAchievement}
+module.exports = {addAchievement, listAchievements}
 

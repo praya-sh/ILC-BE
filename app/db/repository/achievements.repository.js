@@ -8,6 +8,23 @@ const addNewAchievement = async(achievementDetails) =>{
     }
 }
 
+const listAllAchievements = async()=>{
+    try{
+        const achievements = await achievementCollection.get();
+        const achievementsArray = [];
+        if(achievements){
+            achievements.forEach((doc)=>{
+                achievementsArray.push({
+                    id: doc.id,
+                    description:doc.data().description
+                })
+            });
+        }
+        JSON.stringify(achievementsArray)
+        return achievementsArray
+    }catch(error){
+        console.log(error)
+    }
+}
 
-
-module.exports = {addNewAchievement} 
+module.exports = {addNewAchievement, listAllAchievements} 

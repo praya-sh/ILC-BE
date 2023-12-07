@@ -10,7 +10,7 @@ userRouter.post('/addExperience', userController.addExp)
 userRouter.get('/getUserExperienceInfo',userController.getUserExpInfo)
 
 userRouter.post('/newAchievement', achievementsController.addAchievement)
-
+userRouter.get('/listAllAchievements',achievementsController.listAchievements)
 
 userRouter.post('/giveAchievement')
 
