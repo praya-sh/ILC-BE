@@ -3,7 +3,8 @@ const COLLECTIONS = {
     'ELIST':'elist',
     'COURSES':'courses',
     'UNITS':'units',
-    'QUIZES':'quizes'
+    'QUIZES':'quizes',
+    'ACHIEVEMENTS':'achievements'
 }
 
 module.exports=COLLECTIONS;
