@@ -97,9 +97,9 @@ const getCompletedUnits = async(req,res,next)=>{
     try{
         const {uid}=req.query
         const userObject = await usersRepo.findUser(uid)
-        const unitsCompleted = userObject.quizesCompleted?userObject.quizesCompleted : null
+        const unitsCompleted = userObject.unitsCompleted?userObject.unitsCompleted : null
         
-        const totalUnitsCompleted = userObject.quizesCompleted? unitsCompleted.length : 0
+        const totalUnitsCompleted = userObject.unitsCompleted? unitsCompleted.length : 0
         return successResponse(res, {message:"retrived", data: {unitsCompleted, totalUnitsCompleted}})
 
     }catch(error){
@@ -107,4 +107,21 @@ const getCompletedUnits = async(req,res,next)=>{
     }
 }
 
-module.exports = {listUsers,saveUser, addExp, getUserExpInfo, userCompletesUnit, userCompletesQuiz, getCompletedUnits}
+const getCompletedQuizes = async(req, res, next)=>{
+    try{
+        const {uid}=req.query
+        const userObject = await usersRepo.findUser(uid)
+        const quizesCompleted = userObject.quizesCompleted?userObject.quizesCompleted : null
+        
+        const totalQuizesCompleted = userObject.quizesCompleted? quizesCompleted.length : 0
+        return successResponse(res, {message:"retrived", data: {quizesCompleted, totalQuizesCompleted}})
+    }catch(error){
+        console.log(error)
+    }
+}
+
+module.exports = {listUsers,saveUser, addExp, getUserExpInfo, userCompletesUnit, userCompletesQuiz, 
+    getCompletedUnits,
+    getCompletedQuizes
+
+}
