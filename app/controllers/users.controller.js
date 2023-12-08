@@ -6,6 +6,7 @@ const quizController = require("./quizes.controller")
 const quizRepo = require("../db/repository/quizes.repository")
 
 const { parseUserObject } = require('../helpers/userHelper')
+
 const listUsers = async(req,res,next)=>{
     const usersList = await usersRepo.getUsers()
     return successResponse(res,{message:'Users listed successfully',data:usersList})
@@ -82,9 +83,7 @@ const userCompletesQuiz = async(req, res, next)=>{
         if(qans == quizAns ){
             await usersRepo.completeQuiz(userId, quizId)
             return successResponse(res,{message:"correct answer", data:true})
-        }
-
-        
+        }        
         else{
             return successResponse(res, {message:"User did not complete quiz", data:quizAns})
 
@@ -94,4 +93,18 @@ const userCompletesQuiz = async(req, res, next)=>{
     }
 }
 
-module.exports = {listUsers,saveUser, addExp, getUserExpInfo, userCompletesUnit, userCompletesQuiz}
+const getCompletedUnits = async(req,res,next)=>{
+    try{
+        const {uid}=req.query
+        const userObject = await usersRepo.findUser(uid)
+        const unitsCompleted = userObject.quizesCompleted?userObject.quizesCompleted : null
+        
+        const totalUnitsCompleted = userObject.quizesCompleted? unitsCompleted.length : 0
+        return successResponse(res, {message:"retrived", data: {unitsCompleted, totalUnitsCompleted}})
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
+module.exports = {listUsers,saveUser, addExp, getUserExpInfo, userCompletesUnit, userCompletesQuiz, getCompletedUnits}
