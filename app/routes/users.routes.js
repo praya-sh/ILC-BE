@@ -14,6 +14,7 @@ userRouter.get('/listAllAchievements',achievementsController.listAchievements)
 userRouter.get('/getAchievement', achievementsController.getAchievement)
 
 userRouter.post('/userCompletesUnit', userController.userCompletesUnit)
+userRouter.post('/userCompletesQuiz', userController.userCompletesQuiz)
 
 userRouter.post('/giveAchievement')
 

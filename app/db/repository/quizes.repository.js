@@ -37,7 +37,7 @@ const getQuizAns = async(quizId) =>{
          const quizAns = quiz.data().ans       //make this function getQuiz only and do this logic in controller
          //console.log(quizAns)
          return quizAns
-    }catch{
+    }catch(error){
         console.log(error)
     }
 }

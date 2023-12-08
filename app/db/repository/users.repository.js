@@ -72,10 +72,23 @@ const completeUnit = async(userId, unitId)=>{
     }
 }
 
+const completeQuiz = async(userId, quizId)=>{
+    try{
+        userRef = await userCollection.doc(userId)
+        await userRef.update({
+            quizesCompleted: firestore.FieldValue.arrayUnion(quizId)
+        })
+        return true
+    }catch(error){
+        console.log(error)
+    }
+}
+
 module.exports={
     addNewUser,
     getUsers,
     findUser, 
     addExptoUser,
-    completeUnit
+    completeUnit,
+    completeQuiz
 }

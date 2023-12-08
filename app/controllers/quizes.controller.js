@@ -29,13 +29,13 @@ const checkQuizAns = async(req, res, next) =>{
         //console.log(givenAns)
         const quizAns = await quizRepo.getQuizAns(givenAns.quizId)
         if (givenAns.ans == quizAns){
-            return successResponse(res, {message:"correct answer", data:quizAns})
+            return successResponse(res, {message:"correct answer", data:true})
         }
         else if(givenAns.ans != quizAns){
-            return successResponse(res, {message:"wrong answer", data:givenAns})
+            return successResponse(res, {message:"wrong answer", data:false})
         }
     }catch(error){
-
+        console.log(error)
     }
 }
 

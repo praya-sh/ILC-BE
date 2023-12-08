@@ -2,6 +2,8 @@ const {successResponse, errorResponse, createdResponse, badRequestResponse, forb
 const usersModel = require("../db/models/users.model")
 const usersRepo = require("../db/repository/users.repository")
 const achievemntRepo = require("../db/repository/achievements.repository")
+const quizController = require("./quizes.controller")
+const quizRepo = require("../db/repository/quizes.repository")
 
 const { parseUserObject } = require('../helpers/userHelper')
 const listUsers = async(req,res,next)=>{
@@ -73,4 +75,23 @@ const userCompletesUnit = async(req, res, next) =>{
     }
 }
 
-module.exports = {listUsers,saveUser, addExp, getUserExpInfo, userCompletesUnit}
+const userCompletesQuiz = async(req, res, next)=>{
+    try{
+        const {userId, quizId, quizAns} = req.body
+        const qans = await quizRepo.getQuizAns(quizId)
+        if(qans == quizAns ){
+            await usersRepo.completeQuiz(userId, quizId)
+            return successResponse(res,{message:"correct answer", data:true})
+        }
+
+        
+        else{
+            return successResponse(res, {message:"User did not complete quiz", data:quizAns})
+
+        }
+    }catch(error){
+        console.log(error)
+    }
+}
+
+module.exports = {listUsers,saveUser, addExp, getUserExpInfo, userCompletesUnit, userCompletesQuiz}
