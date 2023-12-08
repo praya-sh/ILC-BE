@@ -63,4 +63,14 @@ const getUserExpInfo = async(req, res, next)=>{
     }
 }
 
-module.exports = {listUsers,saveUser, addExp, getUserExpInfo}
+const userCompletesUnit = async(req, res, next) =>{
+    try{
+        const{userId, unitId} = req.body
+        await usersRepo.completeUnit(userId, unitId)
+        return successResponse(res, {message:"Unit Completed",data: {userId, unitId}})
+    }catch(error){
+        console.log(error)
+    }
+}
+
+module.exports = {listUsers,saveUser, addExp, getUserExpInfo, userCompletesUnit}

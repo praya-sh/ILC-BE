@@ -26,7 +26,14 @@ const addContent = async(unitContent, docKey)=>{
 const getUnit = async(docKey)=>{
     try{
         const unit = await unitCollection.doc(docKey).get()
-        return unit.exists ? unit.data():null
+        if(unit.exists){
+            return {
+                id:unit.id,
+                unit:unit.data().unit,
+                course:unit.data().course,
+                uContent:unit.data().uContent
+            }
+        }
     
     }catch(error){
         console.log(error)

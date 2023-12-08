@@ -60,9 +60,22 @@ const addExptoUser = async(docKey, expPoint)=>{
     }
 }
 
+const completeUnit = async(userId, unitId)=>{
+    try{    
+        userRef = await userCollection.doc(userId)
+        await userRef.update({
+            unitsCompleted: firestore.FieldValue.arrayUnion(unitId)
+        })
+        return true
+    }catch(error){
+        console.log(error)
+    }
+}
+
 module.exports={
     addNewUser,
     getUsers,
     findUser, 
-    addExptoUser
+    addExptoUser,
+    completeUnit
 }

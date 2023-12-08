@@ -13,6 +13,8 @@ userRouter.post('/newAchievement', achievementsController.addAchievement)
 userRouter.get('/listAllAchievements',achievementsController.listAchievements)
 userRouter.get('/getAchievement', achievementsController.getAchievement)
 
+userRouter.post('/userCompletesUnit', userController.userCompletesUnit)
+
 userRouter.post('/giveAchievement')
 
 module.exports = userRouter;
