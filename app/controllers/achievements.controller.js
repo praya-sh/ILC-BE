@@ -20,6 +20,17 @@ const listAchievements = async(req, res, next)=>{
     }
 }
 
+const getAchievement = async(req, res, next)=>{
+    try{
+        const {uid} = req.query
+        const achievementObject = await achievemntRepo.findAchievement(uid)
+        return successResponse(res, {message:"achievement retrieved", data:achievementObject})
 
-module.exports = {addAchievement, listAchievements}
+    }catch(error){
+        console.log(error)
+    }
+}
+
+
+module.exports = {addAchievement, listAchievements, getAchievement}
 

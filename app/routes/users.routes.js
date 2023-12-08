@@ -11,6 +11,7 @@ userRouter.get('/getUserExperienceInfo',userController.getUserExpInfo)
 
 userRouter.post('/newAchievement', achievementsController.addAchievement)
 userRouter.get('/listAllAchievements',achievementsController.listAchievements)
+userRouter.get('/getAchievement', achievementsController.getAchievement)
 
 userRouter.post('/giveAchievement')
 

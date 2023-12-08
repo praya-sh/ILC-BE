@@ -1,6 +1,8 @@
 const {successResponse, errorResponse, createdResponse, badRequestResponse, forbiddenResponse} = require('../helpers/responseHelpers')
 const usersModel = require("../db/models/users.model")
 const usersRepo = require("../db/repository/users.repository")
+const achievemntRepo = require("../db/repository/achievements.repository")
+
 const { parseUserObject } = require('../helpers/userHelper')
 const listUsers = async(req,res,next)=>{
     const usersList = await usersRepo.getUsers()

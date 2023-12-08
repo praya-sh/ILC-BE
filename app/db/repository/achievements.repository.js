@@ -27,4 +27,23 @@ const listAllAchievements = async()=>{
     }
 }
 
-module.exports = {addNewAchievement, listAllAchievements} 
+const findAchievement = async(docKey) =>{
+    try{
+        const achievement = await achievementCollection.doc(docKey).get()
+        if(achievement.exists){
+            return {
+                id: achievement.id,
+                description:achievement.data().description
+            }
+        }else{
+            return null
+        }
+        
+    }catch(error){
+        console.log(error)
+    }
+}
+
+
+
+module.exports = {addNewAchievement, listAllAchievements, findAchievement} 
