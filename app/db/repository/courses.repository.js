@@ -21,6 +21,7 @@ const getCourses = async()=>{
                 coursesArray.push({
                     id: doc.id,
                     name: doc.data().name,
+                    isLocked:doc.data().isLocked
                 })
               });
         }
