@@ -44,7 +44,8 @@ const getCourseUnits = async(courseId)=>{
                     id:doc.id,
                     unit:doc.data().unit,
                     course:doc.data().course,
-                    uContent:doc.data().uContent
+                    // uContent:doc.data().uContent,
+                    content:doc.data().content
                 })
             });
         }
