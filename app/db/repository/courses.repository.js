@@ -50,7 +50,7 @@ const getCourseUnits = async(courseId)=>{
             });
         }
         
-        console.log(JSON.stringify(courseUnitArray))
+       // console.log(JSON.stringify(courseUnitArray))
         return courseUnitArray
     }catch(error){
         console.log('Error getting course units',error)
