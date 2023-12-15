@@ -124,8 +124,37 @@ const getCompletedQuizes = async(req, res, next)=>{
     }
 }
 
+const giveAchievementToUser = async(req, res, next)=>{
+    try{    
+        const {uid, achievementId} = req.body
+        await usersRepo.completeAchievement(uid, achievementId)
+        successResponse(res, {message:"given achievement", data:achievementId})
+    }catch(error){
+        console.log(error)
+    }
+}
+
+const seeAchievment = async(req, res, next)=>{
+    try{
+        const {uid} = req.query
+        const achievementArray = await usersRepo.seeUserAchievement(uid)
+        const achievementData = []
+        //cannot use foreach cause can't handle await async
+        for(const doc of achievementArray){
+            achievementInfo = await achievemntRepo.findAchievement(doc)
+            achievementData.push(achievementInfo)
+        }
+        
+        
+        successResponse(res, {message:"achievement array retrieved", data:achievementData})
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
 module.exports = {listUsers,saveUser, addExp, getUserExpInfo, userCompletesUnit, userCompletesQuiz, 
     getCompletedUnits,
-    getCompletedQuizes
-
+    getCompletedQuizes,
+    giveAchievementToUser, seeAchievment
 }

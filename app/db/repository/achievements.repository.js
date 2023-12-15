@@ -33,7 +33,8 @@ const findAchievement = async(docKey) =>{
         if(achievement.exists){
             return {
                 id: achievement.id,
-                description:achievement.data().description
+                description:achievement.data().description,
+                title:achievement.data().title
             }
         }else{
             return null
