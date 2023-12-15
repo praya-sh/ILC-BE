@@ -72,11 +72,12 @@ const completeUnit = async(userId, unitId)=>{
     }
 }
 
-const completeQuiz = async(userId, quizId)=>{
+const completeQuiz = async(userId)=>{
     try{
         userRef = await userCollection.doc(userId)
         await userRef.update({
-            quizesCompleted: firestore.FieldValue.arrayUnion(quizId)
+           // quizesCompleted: firestore.FieldValue.arrayUnion(quizId),
+            quizesCompletedNo: firestore.FieldValue.increment(1)
         })
         return true
     }catch(error){

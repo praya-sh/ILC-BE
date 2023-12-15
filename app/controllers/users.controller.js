@@ -78,16 +78,19 @@ const userCompletesUnit = async(req, res, next) =>{
 
 const userCompletesQuiz = async(req, res, next)=>{
     try{
-        const {userId, quizId, quizAns} = req.body
-        const qans = await quizRepo.getQuizAns(quizId)
-        if(qans == quizAns ){
-            await usersRepo.completeQuiz(userId, quizId)
-            return successResponse(res,{message:"correct answer", data:true})
-        }        
-        else{
-            return successResponse(res, {message:"User did not complete quiz", data:quizAns})
+       // const {userId, quizId, quizAns} = req.body
+        const {userId}= req.body
+        //const qans = await quizRepo.getQuizAns(quizId)
+        // if(qans == quizAns ){
+        //     await usersRepo.completeQuiz(userId, quizId)
+        //     return successResponse(res,{message:"correct answer", data:true})
+        // }        
+        // else{
+        //     return successResponse(res, {message:"User did not complete quiz", data:quizAns})
 
-        }
+        // }
+        await usersRepo.completeQuiz(userId)
+        return successResponse(res,{message:"quiz completed", data:true})
     }catch(error){
         console.log(error)
     }
@@ -111,10 +114,11 @@ const getCompletedQuizes = async(req, res, next)=>{
     try{
         const {uid}=req.query
         const userObject = await usersRepo.findUser(uid)
-        const quizesCompleted = userObject.quizesCompleted?userObject.quizesCompleted : null
+        // const quizesCompleted = userObject.quizesCompleted?userObject.quizesCompleted : null
         
-        const totalQuizesCompleted = userObject.quizesCompleted? quizesCompleted.length : 0
-        return successResponse(res, {message:"retrived", data: {quizesCompleted, totalQuizesCompleted}})
+        // const totalQuizesCompleted = userObject.quizesCompleted? quizesCompleted.length : 0
+        const quizesCompletedNo = userObject.quizesCompletedNo
+        return successResponse(res, {message:"retrived", data: {quizesCompletedNo}})
     }catch(error){
         console.log(error)
     }
