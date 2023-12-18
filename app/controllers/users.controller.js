@@ -69,8 +69,13 @@ const getUserExpInfo = async(req, res, next)=>{
 const userCompletesUnit = async(req, res, next) =>{
     try{
         const{userId, unitId} = req.body
+        const user = usersRepo.findUser(userId)
+       
+        
         await usersRepo.completeUnit(userId, unitId)
         return successResponse(res, {message:"Unit Completed",data: {userId, unitId}})
+        
+        
     }catch(error){
         console.log(error)
     }
@@ -153,8 +158,42 @@ const seeAchievment = async(req, res, next)=>{
     }
 }
 
+const storeUserAvatar = async(req, res, next) =>{
+    try{
+        const {userId, accessory,body,face,hair,facialHair} = req.body
+        await usersRepo.storeAvatar(userId, accessory,body,face,hair,facialHair)
+        successResponse(res, {message:"states added successfully", data : true})
+    
+    }catch(error){
+        console.log(error)
+    }
+
+}
+
+const getUserAvatar = async(req, res, next)=>{
+    try{
+        const {uid} = req.query
+        const avatar = await usersRepo.getAvatar(uid)
+        successResponse(res, {message: "retrived avatar", data: avatar})
+    }catch(error){
+        console.log(error)
+    }
+}
+
+const storeUserAccessory = async(req, res, next)=>{
+    try{
+        const {userId, accessory} = req.body
+        await usersRepo.storeAccessory(userId, accessory)
+        successResponse(res, {message:"accessory added successfully", data : true})
+    }catch(error){
+        console.log(error)
+    }
+}
+
 module.exports = {listUsers,saveUser, addExp, getUserExpInfo, userCompletesUnit, userCompletesQuiz, 
     getCompletedUnits,
     getCompletedQuizes,
-    giveAchievementToUser, seeAchievment
+    giveAchievementToUser, seeAchievment,
+    storeUserAvatar, getUserAvatar,
+    storeUserAccessory
 }

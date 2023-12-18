@@ -109,6 +109,58 @@ const seeUserAchievement = async (userId) => {
   }
 };
 
+const storeAvatar = async(userId, accessory, body, face, hair, facialHair)=>{
+  try{
+    userRef = await userCollection.doc(userId);
+    await userRef.update({
+      accessory,
+      body,
+      face,
+      hair,
+      facialHair
+    })
+  }catch(error){
+    console.log(error)
+  }
+}
+
+const getAvatar = async (userId)=>{
+  try{
+    userDoc = await userCollection.doc(userId).get();
+    const avatar = {
+      accessory: userDoc.data().accessory,
+      body: userDoc.data().body,
+      face: userDoc.data().face,
+      hair:userDoc.data().hair,
+      facialHair:userDoc.data().facialHair
+    }
+    return avatar
+  }catch(error){
+    console.log(error)
+  }
+}
+
+const storeAccessory = async (userId, accessory) => {
+  try {
+    // Ensure userId is a non-empty string
+    if (!userId ) {
+      throw new Error('Invalid userId');
+    }
+
+    const userRef = await userCollection.doc(userId);
+
+    // Update the accessory field
+    await userRef.update({
+      accessory: accessory
+    });
+
+    console.log('Accessory updated successfully.');
+  } catch (error) {
+    console.error('Error updating accessory:', error);
+  }
+};
+
+
 module.exports = {
   addNewUser,
   getUsers,
@@ -118,4 +170,6 @@ module.exports = {
   completeQuiz,
   completeAchievement,
   seeUserAchievement,
+  storeAvatar, 
+  getAvatar, storeAccessory
 };
