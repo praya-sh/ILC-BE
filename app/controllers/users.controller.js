@@ -8,6 +8,7 @@ const {
 const usersModel = require("../db/models/users.model");
 const usersRepo = require("../db/repository/users.repository");
 const achievemntRepo = require("../db/repository/achievements.repository");
+const unitRepo = require("../db/repository/unit.repository")
 const quizController = require("./quizes.controller");
 const quizRepo = require("../db/repository/quizes.repository");
 
@@ -87,8 +88,6 @@ const getUserExpInfo = async (req, res, next) => {
 const userCompletesUnit = async (req, res, next) => {
   try {
     const { userId, unitId } = req.body;
-    const user = usersRepo.findUser(userId);
-
     await usersRepo.completeUnit(userId, unitId);
     return successResponse(res, {
       message: "Unit Completed",
@@ -186,6 +185,27 @@ const seeAchievment = async (req, res, next) => {
   }
 };
 
+const lessonAchivements = async (req,res) => {
+  try{
+    const {uid} = req.query;
+    const  data = []
+    // user completed units array
+    const userCompletedUnits = await usersRepo.getUserCompletedUnits(uid)
+    // achivement id ko achivement
+    const lessonCompleteAchivement = await achievemntRepo.findAchievement("nAnPtZfuhFJDDJPT9pCv")
+    // get completed units name
+    for (const unitId of userCompletedUnits){
+      const unitName = await unitRepo.getUnitName(unitId)
+      data.push({
+        id:lessonCompleteAchivement.id,
+        title:lessonCompleteAchivement.title,
+        description:lessonCompleteAchivement.description + " " + unitName
+      })
+    }
+    successResponse(res, {message:"List of Lessons Completed Achivement.", data:data})
+  }catch{}
+}
+
 const storeUserAvatar = async (req, res, next) => {
   try {
     const { userId, accessory, body, face, hair, facialHair } = req.body;
@@ -235,6 +255,7 @@ module.exports = {
   getCompletedQuizes,
   giveAchievementToUser,
   seeAchievment,
+  lessonAchivements,
   storeUserAvatar,
   getUserAvatar,
   storeUserAccessory,

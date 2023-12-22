@@ -40,5 +40,14 @@ const getUnit = async(docKey)=>{
     }
 }
 
+const getUnitName = async(Id) => {
+    try{
+        const unit = await unitCollection.doc(Id).get()
+        if(!unit){throw new Error("No Unit Found")}
+        const unitName = unit.data();
+        return unitName.unit;
+    }catch(error){console.error(error)} 
+}
 
-module.exports={addNewUnit, addContent, getUnit}
+
+module.exports={addNewUnit, addContent, getUnit, getUnitName}
