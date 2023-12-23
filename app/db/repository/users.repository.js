@@ -81,7 +81,7 @@ const completeQuiz = async (userId) => {
 
 const completeAchievement = async (userId, achievementId) => {
   try {
-    userRef = await userCollection.doc(userId);
+    const userRef = await userCollection.doc(userId);
     await userRef.update({
       achievements: firestore.FieldValue.arrayUnion(achievementId),
     });
