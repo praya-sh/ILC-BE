@@ -20,6 +20,7 @@ userRouter.get("/getCompletedQuizes", userController.getCompletedQuizes);
 
 userRouter.post("/giveAchievement", userController.giveAchievementToUser);
 userRouter.get("/seeAchievement", userController.seeAchievment);
+userRouter.get("/lessonAchivements",userController.lessonAchivements)
 
 
 userRouter.post("/storeAvatar", userController.storeUserAvatar);

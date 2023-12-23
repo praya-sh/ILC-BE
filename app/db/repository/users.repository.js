@@ -160,6 +160,15 @@ const storeAccessory = async (userId, accessory) => {
   }
 };
 
+const getUserCompletedUnits = async(userId) => {
+  try{
+    if(!userId){throw new Error("Invalid User Id")}
+    const user = await userCollection.doc(userId).get();
+    const unitsCompleted = user.data().unitsCompleted
+    return user.exists ? unitsCompleted : null;
+  }catch(error){console.error(error)}
+};
+
 
 module.exports = {
   addNewUser,
@@ -171,5 +180,6 @@ module.exports = {
   completeAchievement,
   seeUserAchievement,
   storeAvatar, 
-  getAvatar, storeAccessory
+  getAvatar, storeAccessory,
+  getUserCompletedUnits
 };
