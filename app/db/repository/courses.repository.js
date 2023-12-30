@@ -25,7 +25,7 @@ const getCourses = async()=>{
                 })
               });
         }
-        console.log(JSON.stringify(coursesArray))
+        //console.log(JSON.stringify(coursesArray))
         return coursesArray;
     }
     catch(error){
