@@ -31,7 +31,7 @@ const getUnit = async(docKey)=>{
                 id:unit.id,
                 unit:unit.data().unit,
                 course:unit.data().course,
-                uContent:unit.data().uContent
+                content:unit.data().content
             }
         }
     
