@@ -22,6 +22,7 @@ userRouter.post("/giveAchievement", userController.giveAchievementToUser);
 userRouter.get("/seeAchievement", userController.seeAchievment);
 userRouter.get("/lessonAchivements",userController.lessonAchivements)
 
+
 userRouter.post("/storeAvatar", userController.storeUserAvatar);
 userRouter.get("/getAvatar", userController.getUserAvatar);
 userRouter.post("/storeAccessory", userController.storeUserAccessory);

@@ -23,7 +23,7 @@ const getUsers = async () => {
         usersArray.push(doc.data());
       });
     }
-    console.log(JSON.stringify(usersArray));
+    //console.log(JSON.stringify(usersArray));
     return usersArray;
   } catch (error) {
     console.error("Error getting users", error);
@@ -46,7 +46,7 @@ const addExptoUser = async (docKey, expPoint) => {
     const userXp = await userRef.update({
       expPoints: firestore.FieldValue.increment(expPoint),
     });
-    console.log(userXp);
+    //console.log(userXp);
 
     return true;
   } catch (error) {
@@ -81,7 +81,7 @@ const completeQuiz = async (userId) => {
 
 const completeAchievement = async (userId, achievementId) => {
   try {
-    userRef = await userCollection.doc(userId);
+    const userRef = await userCollection.doc(userId);
     await userRef.update({
       achievements: firestore.FieldValue.arrayUnion(achievementId),
     });
@@ -92,7 +92,7 @@ const completeAchievement = async (userId, achievementId) => {
 
 const seeUserAchievement = async (userId) => {
   try {
-    userRef = await userCollection.doc(userId).get();
+    userRef = await userCollection.doc(userId).get({source:"cache"});
     // const achievementArray = []
     // achievementArray.push({
     //     achievementId:userRef.data().achievements
@@ -143,6 +143,8 @@ const getAvatar = async (userId)=>{
 const storeAccessory = async (userId, accessory) => {
   try {
     // Ensure userId is a non-empty string
+
+    //
     if (!userId ) {
       throw new Error('Invalid userId');
     }
@@ -162,6 +164,8 @@ const storeAccessory = async (userId, accessory) => {
 
 const getUserCompletedUnits = async(userId) => {
   try{
+
+    //random change
     if(!userId){throw new Error("Invalid User Id")}
     const user = await userCollection.doc(userId).get();
     const unitsCompleted = user.data().unitsCompleted

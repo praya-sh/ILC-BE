@@ -20,7 +20,7 @@ const getElist = async()=>{
                 elistArr.push(doc.data());
             })
         }
-        console.log(JSON.stringify(elistArr))
+        //console.log(JSON.stringify(elistArr))
         return elistArr
     }catch(error){
         console.log(error);
